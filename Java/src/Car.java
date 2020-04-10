@@ -10,6 +10,9 @@ public class Car {
     private String modelDetails;
     private String fuel_type;
 
+    //Constructor(s)
+    public Car() {}
+
     //Getters and Setters
     public int getCarId() {
         return carId;
