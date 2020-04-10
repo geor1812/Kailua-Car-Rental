@@ -24,7 +24,7 @@ public class ControllerCar {
                     "FROM kailua.car\n" +
                     "JOIN model ON car.model_id = model.model_id\n" +
                     "ORDER BY car.car_id;";
-            DBConnection.displayRS(query);
+            DBConnection.queryDB(query);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -44,7 +44,7 @@ public class ControllerCar {
                             "JOIN model ON car.model_id = model.model_id\n" +
                             "WHERE car.car_id = " + id + "\n" +
                     "ORDER BY car.car_id;";
-                    DBConnection.displayRS(query1);
+                    DBConnection.queryDB(query1);
                     break;
                 case 2:
                     System.out.println("Enter the Model ID:");
@@ -54,7 +54,7 @@ public class ControllerCar {
                             "JOIN model ON car.model_id = model.model_id\n" +
                             "WHERE model.model_id = " + modelId +"\n" +
                             "ORDER BY car.car_id;";
-                    DBConnection.displayRS(query2);
+                    DBConnection.queryDB(query2);
                     break;
                 case 3:
                     System.out.println("Enter the Model Group");
@@ -64,7 +64,7 @@ public class ControllerCar {
                             "JOIN model ON car.model_id = model.model_id\n" +
                             "WHERE model.model_group = " + modelGroup + "\n" +
                             "ORDER BY car.car_id;";
-                    DBConnection.displayRS(query3);
+                    DBConnection.queryDB(query3);
                     break;
                 case 4:
                     System.out.println("Enter the Brand");
@@ -74,7 +74,7 @@ public class ControllerCar {
                             "JOIN model ON car.model_id = model.model_id\n" +
                             "WHERE model.brand = \'" + brand + "\'\n" +
                             "ORDER BY car.car_id;";
-                    DBConnection.displayRS(query4);
+                    DBConnection.queryDB(query4);
                     break;
                 case 5:
                     System.out.println("Enter the Registration Number");
@@ -84,7 +84,7 @@ public class ControllerCar {
                             "JOIN model ON car.model_id = model.model_id\n" +
                             "WHERE car.reg_nr = \'" + regNr + "\'\n" +
                             "ORDER BY car.car_id;";
-                    DBConnection.displayRS(query5);
+                    DBConnection.queryDB(query5);
                     break;
             }
         } catch (SQLException e) {

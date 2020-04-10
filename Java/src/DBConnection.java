@@ -8,10 +8,10 @@ public class DBConnection {
 
     public static void main(String[] args) throws SQLException {
         String query = "SELECT * FROM car WHERE car_id = 1";
-        displayRS(query);
+        queryDB(query);
     }
 
-    public static void displayRS(String query) throws SQLException {
+    public static void queryDB(String query) throws SQLException {
         try {
             con = null;
             Statement s = null;
