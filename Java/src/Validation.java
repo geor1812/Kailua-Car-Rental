@@ -20,4 +20,10 @@ public class Validation {
         }
         return console.nextInt();
     }
+
+    //returns a string from the user
+    public static String getString() {
+        Scanner console = new Scanner(System.in);
+        return console.next();
+    }
 }

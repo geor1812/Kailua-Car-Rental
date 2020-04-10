@@ -23,7 +23,6 @@ public class DBConnection {
             ResultSet rs = s.executeQuery(query);
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
-
             if (rs != null)
                 while (rs.next()) {
                     for (int i = 1; i <= columnsNumber; i++) {
@@ -31,6 +30,7 @@ public class DBConnection {
                         String columnValue = rs.getString(i);
                         System.out.print(columnValue + " " + rsmd.getColumnName(i));
                     }
+                    System.out.println();
                 }
             s.close();
             con.close();
