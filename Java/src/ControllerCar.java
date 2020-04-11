@@ -2,9 +2,10 @@ import java.sql.*;
 
 public class ControllerCar {
     public static void main(String[] args) {
-        create();
+        delete();
     }
 
+    //Creates a new car
     public static void create() {
         //Getting the model
         System.out.println("[1] New Model\n[2] Existing Model");
@@ -54,6 +55,7 @@ public class ControllerCar {
 
     }
 
+    //Creates a new model
     public static int createModel() {
         //Getting the data from the user
         System.out.println("Enter the model group:\n" +
@@ -187,4 +189,22 @@ public class ControllerCar {
             System.out.println(e.getMessage());
         }
     }
+
+    //Deletes a car from the DB
+    public static void delete() {
+        //Getting the ID
+        read();
+        System.out.println("Enter the ID of the car you want to delete");
+        int carId = Validation.getInt();
+
+        //Deleting from DB
+        try {
+            String query = "DELETE FROM car WHERE car_id = " + carId;
+            DBConnection.updateDB(query);
+            System.out.println("Car succesfully deleted");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
 }
