@@ -2,7 +2,7 @@ import java.sql.*;
 
 public class ControllerCar {
     public static void main(String[] args) {
-        delete();
+        update();
     }
 
     //Creates a new car
@@ -190,6 +190,41 @@ public class ControllerCar {
         }
     }
 
+    //Updates an attribute of a car
+    public static void update() {
+        //Getting the ID of the car
+        read();
+        System.out.println("Enter the ID of the car you want to update");
+        int carId = Validation.getInt();
+
+        //Updating a particular attribute
+        System.out.println("Which field do you wish to change\n" +
+                "[1] Registration Number\n[2] Odometer information");
+        try {
+            switch (Validation.menuSelection(1,2)) {
+                case 1:
+                    System.out.println("Enter the new registration number");
+                    String regNr = Validation.getString();
+                    String updateQuery1 = "UPDATE car \n" +
+                            "SET reg_nr = \'" + regNr + "\'\n" +
+                            "WHERE car_id = " + carId;
+                    DBConnection.updateDB(updateQuery1);
+
+                    String selectQuery1 = "SELECT car.car_id, model.model_id, model.model_group, model.brand, model.model_details, model.fuel_type, car.reg_nr, car.reg_date, car.odometer \n" +
+                            "FROM kailua.car\n" +
+                            "JOIN model ON car.model_id = model.model_id\n" +
+                            "WHERE car_id = " + carId;
+                    DBConnection.queryDB(selectQuery1);
+                    System.out.println("Car succesfully updated");
+                    break;
+                case 2:
+                    break;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     //Deletes a car from the DB
     public static void delete() {
         //Getting the ID
@@ -206,5 +241,5 @@ public class ControllerCar {
             System.out.println(e.getMessage());
         }
     }
-    
+
 }
