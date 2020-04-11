@@ -2,9 +2,10 @@ import java.sql.*;
 
 public class ControllerCar {
     public static void main(String[] args) {
-        create();
+        update();
     }
 
+    //Creates a new car
     public static void create() {
         //Getting the model
         System.out.println("[1] New Model\n[2] Existing Model");
@@ -54,6 +55,7 @@ public class ControllerCar {
 
     }
 
+    //Creates a new model
     public static int createModel() {
         //Getting the data from the user
         System.out.println("Enter the model group:\n" +
@@ -187,4 +189,70 @@ public class ControllerCar {
             System.out.println(e.getMessage());
         }
     }
+
+    //Updates an attribute of a car
+    public static void update() {
+        //Getting the ID of the car
+        read();
+        System.out.println("Enter the ID of the car you want to update");
+        int carId = Validation.getInt();
+
+        //Updating a particular attribute
+        System.out.println("Which field do you wish to change\n" +
+                "[1] Registration Number\n[2] Odometer information");
+        try {
+            switch (Validation.menuSelection(1,2)) {
+                case 1:
+                    System.out.println("Enter the new registration number");
+                    String regNr = Validation.getString();
+                    String updateQuery1 = "UPDATE car \n" +
+                            "SET reg_nr = \'" + regNr + "\'\n" +
+                            "WHERE car_id = " + carId;
+                    DBConnection.updateDB(updateQuery1);
+
+                    String selectQuery1 = "SELECT car.car_id, model.model_id, model.model_group, model.brand, model.model_details, model.fuel_type, car.reg_nr, car.reg_date, car.odometer \n" +
+                            "FROM kailua.car\n" +
+                            "JOIN model ON car.model_id = model.model_id\n" +
+                            "WHERE car_id = " + carId;
+                    DBConnection.queryDB(selectQuery1);
+                    System.out.println("Car succesfully updated");
+                    break;
+                case 2:
+                    System.out.println("Enter the new odometer information");
+                    int odometer = Validation.getInt();
+                    String updateQuery2 = "UPDATE car \n" +
+                            "SET odometer = " + odometer + "\n" +
+                            "WHERE car_id = " + carId;
+                    DBConnection.updateDB(updateQuery2);
+
+                    String selectQuery2 = "SELECT car.car_id, model.model_id, model.model_group, model.brand, model.model_details, model.fuel_type, car.reg_nr, car.reg_date, car.odometer \n" +
+                            "FROM kailua.car\n" +
+                            "JOIN model ON car.model_id = model.model_id\n" +
+                            "WHERE car_id = " + carId;
+                    DBConnection.queryDB(selectQuery2);
+                    System.out.println("Car succesfully updated");
+                    break;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //Deletes a car from the DB
+    public static void delete() {
+        //Getting the ID
+        read();
+        System.out.println("Enter the ID of the car you want to delete");
+        int carId = Validation.getInt();
+
+        //Deleting from DB
+        try {
+            String query = "DELETE FROM car WHERE car_id = " + carId;
+            DBConnection.updateDB(query);
+            System.out.println("Car succesfully deleted");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }
