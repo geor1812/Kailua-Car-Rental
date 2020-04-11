@@ -218,6 +218,19 @@ public class ControllerCar {
                     System.out.println("Car succesfully updated");
                     break;
                 case 2:
+                    System.out.println("Enter the new odometer information");
+                    int odometer = Validation.getInt();
+                    String updateQuery2 = "UPDATE car \n" +
+                            "SET odometer = " + odometer + "\n" +
+                            "WHERE car_id = " + carId;
+                    DBConnection.updateDB(updateQuery2);
+
+                    String selectQuery2 = "SELECT car.car_id, model.model_id, model.model_group, model.brand, model.model_details, model.fuel_type, car.reg_nr, car.reg_date, car.odometer \n" +
+                            "FROM kailua.car\n" +
+                            "JOIN model ON car.model_id = model.model_id\n" +
+                            "WHERE car_id = " + carId;
+                    DBConnection.queryDB(selectQuery2);
+                    System.out.println("Car succesfully updated");
                     break;
             }
         } catch (SQLException e) {
