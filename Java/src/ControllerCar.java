@@ -6,6 +6,7 @@ public class ControllerCar {
     }
 
     public static void create() {
+        //Getting the model
         System.out.println("[1] New Model\n[2] Existing Model");
         int modelId = -1;
         switch (Validation.menuSelection(1,2)) {
@@ -13,9 +14,44 @@ public class ControllerCar {
                 modelId = createModel();
                 break;
             case 2:
+                //Showing the available models
+                try {
+                    String query = "SELECT * FROM model ORDER BY model_id";
+                    DBConnection.queryDB(query);
+                } catch(SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+
+                System.out.println("Enter the ID of the model you wish to choose for the new car");
+                modelId = Validation.getInt();
                 break;
         }
-        System.out.println("Model ID = " + modelId);
+
+        //Other car information
+        System.out.println("Enter the registration number");
+        String regNr = Validation.getString();
+        System.out.println("Enter the registration date\nFormat: yyyy-mm-dd");
+        String regDate = Validation.getString();
+        System.out.println("Enter the number of km on the odometer");
+        int odometer = Validation.getInt();
+
+        //Actually inserting in the database
+        try {
+            String insertQuery = "INSERT INTO car\n" +
+                    "(reg_nr, reg_date, odometer, model_id)\n" +
+                    "VALUES \n" +
+                    "(\n'" + regNr + "\', \'" + regDate + "\', " + odometer + ", " + modelId + ");";
+            DBConnection.updateDB(insertQuery);
+            String selectQuery = "SELECT car.car_id, model.model_id, model.model_group, model.brand, model.model_details, model.fuel_type, car.reg_nr, car.reg_date, car.odometer \n" +
+                    "FROM kailua.car\n" +
+                    "JOIN model ON car.model_id = model.model_id\n" +
+                    "ORDER BY car.car_id DESC LIMIT 1;";
+            DBConnection.queryDB(selectQuery);
+            System.out.println("Car succesfully added");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public static int createModel() {
