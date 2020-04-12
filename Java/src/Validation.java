@@ -3,6 +3,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validation {
+    public static void main(String[] args) {
+        String regNr = getRegNr();
+    }
     //gets a menu selection from the user
     public static int menuSelection(int lowerIndex, int upperIndex) {
         int selection = getInt();
@@ -37,11 +40,27 @@ public class Validation {
         Matcher matcher = pattern.matcher(date);
         Boolean match = matcher.matches();
        while(!match) {
-            System.out.println("Please enter date in format yyyy-mm-dd");
+            System.out.println("Please enter date in format: yyyy-mm-dd");
             date = console.next();
             matcher = pattern.matcher(date);
             match = matcher.matches();
         }
         return date;
+    }
+
+    public static String getRegNr() {
+        Scanner console = new Scanner(System.in);
+        String regex = "[a-zA-Z]{2}\\d{5}";
+        Pattern pattern = Pattern.compile(regex);
+        String regNr = console.next();
+        Matcher matcher = pattern.matcher(regNr);
+        Boolean match = matcher.matches();
+        while(!match) {
+            System.out.println("Please enter registration number in format: AB12345");
+            regNr = console.next();
+            matcher = pattern.matcher(regNr);
+            match = matcher.matches();
+        }
+        return regNr;
     }
 }
