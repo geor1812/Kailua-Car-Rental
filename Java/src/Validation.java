@@ -4,12 +4,14 @@ import java.util.regex.Pattern;
 
 public class Validation {
     public static void main(String[] args) {
-        String regNr = getRegNr();
+        String regNr = getDate();
+        System.out.println(regNr);
     }
+
     //gets a menu selection from the user
     public static int menuSelection(int lowerIndex, int upperIndex) {
         int selection = getInt();
-        while(selection < lowerIndex || selection > upperIndex) {
+        while (selection < lowerIndex || selection > upperIndex) {
             System.out.println("Your selection is invalid");
             selection = getInt();
         }
@@ -19,7 +21,7 @@ public class Validation {
     //returns an int from the user
     public static int getInt() {
         Scanner console = new Scanner(System.in);
-        while(!console.hasNextInt()) {
+        while (!console.hasNextInt()) {
             System.out.println("You must enter an integer");
             console.next();
         }
@@ -39,13 +41,20 @@ public class Validation {
         String date = console.next();
         Matcher matcher = pattern.matcher(date);
         Boolean match = matcher.matches();
-       while(!match) {
+        while (!match) {
             System.out.println("Please enter date in format: yyyy-mm-dd");
             date = console.next();
             matcher = pattern.matcher(date);
             match = matcher.matches();
         }
-        return date;
+        System.out.println("Please specify from what hour you would like to rent");
+        int hour = console.nextInt();
+        while (9 > hour && hour < 23) {
+            System.out.println("Please use a number between 10-22");
+            hour = console.nextInt();
+        }
+        String time = hour + ":00:00.0";
+        return date + " " + time;
     }
 
     public static String getRegNr() {
@@ -55,7 +64,7 @@ public class Validation {
         String regNr = console.next();
         Matcher matcher = pattern.matcher(regNr);
         Boolean match = matcher.matches();
-        while(!match) {
+        while (!match) {
             System.out.println("Please enter registration number in format: AB12345");
             regNr = console.next();
             matcher = pattern.matcher(regNr);
@@ -63,4 +72,18 @@ public class Validation {
         }
         return regNr;
     }
+
+    public static String getDateHour() {
+        String date = getDate();
+        Scanner console = new Scanner(System.in);
+        System.out.println("Please specify from what hour you would like to rent");
+        int hour = console.nextInt();
+        while (9 > hour && hour < 23) {
+            System.out.println("Please use a number between 10-22");
+            hour = console.nextInt();
+        }
+        String time = hour + ":00:00.0";
+        return date + " " + time;
+    }
+
 }
