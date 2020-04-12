@@ -10,11 +10,7 @@ public class ControllerRental {
             "JOIN car ON rental.car_id = car.car_id\n" +
             "JOIN address ON customer.address_id = address.address_id\n";
 
-    public static void main(String[] args) {
-        create();
-    }
-
-    //Creates a new car
+    //Creates a new rental
     public static void create() {
         //Getting the model
         int customerId= -1;
@@ -38,23 +34,23 @@ public class ControllerRental {
             System.out.println(e.getMessage());
         }
 
-            System.out.println("Enter the ID of the customer you wish to make a rental for");
+            System.out.println("Enter the ID of the car you wish to make a rental for");
             carId = Validation.getInt();
 
         //Other rental information
         System.out.println("Enter the start date\nFormat: yyyy-mm-dd");
-        String startDate = Validation.getDate();
+        String startDate = Validation.getDateHour();
         System.out.println("Enter the endDate\nFormat: yyyy-mm-dd");
-        String endDate = Validation.getDate();
+        String endDate = Validation.getDateHour();
         System.out.println("Enter the max number of km for the rental");
         int maxKm = Validation.getInt();
 
         //Actually inserting in the database
         try {
             String insertQuery = "INSERT INTO rental\n" +
-                    "(start_date, end_date, max_km, customer_id, car_id)\n" +
+                    "(start_date, end_date, max_km, car_id, customer_id)\n" +
                     "VALUES \n" +
-                    "(\n'" + endDate + "\', \'" + startDate + "\', " + maxKm + ", " + customerId + carId + ");";
+                    "(\n'" + startDate + "\', \'" + endDate + "\', " + maxKm + ", " + carId + ", " + customerId + ");";
             DBConnection.updateDB(insertQuery);
             String selectQuery = rentalSelect +
                     "ORDER BY car.car_id DESC LIMIT 1;";
@@ -160,9 +156,9 @@ public class ControllerRental {
             switch (Validation.menuSelection(1,5)) {
                 case 1:
                     System.out.println("Enter the new start date");
-                    String startDate = Validation.getDate();
+                    String startDate = Validation.getDateHour();
                     String updateQuery1 = "UPDATE rental \n" +
-                            "SET start date = " + startDate + "\n" +
+                            "SET start_date = \'" + startDate + "\'\n" +
                             "WHERE rental_id = " + rentalId;
                     DBConnection.updateDB(updateQuery1);
 
@@ -173,9 +169,9 @@ public class ControllerRental {
                     break;
                 case 2:
                     System.out.println("Enter the new end date");
-                    String endDate = Validation.getDate();
+                    String endDate = Validation.getDateHour();
                     String updateQuery2 = "UPDATE rental \n" +
-                            "SET end_date = " + endDate + "\n" +
+                            "SET end_date = \'" + endDate + "\'\n" +
                             "WHERE rental_id = " + rentalId;
                     DBConnection.updateDB(updateQuery2);
 
@@ -188,7 +184,7 @@ public class ControllerRental {
                     System.out.println("Enter the new max km");
                     int maxKm = Validation.getInt();
                     String updateQuery3 = "UPDATE rental \n" +
-                            "SET max_km = " + maxKm + "\n" +
+                            "SET max_km = \'" + maxKm + "\'\n" +
                             "WHERE rental_id = " + rentalId;
                     DBConnection.updateDB(updateQuery3);
 
@@ -201,7 +197,7 @@ public class ControllerRental {
                     System.out.println("Enter the new customer ID");
                     int customerId = Validation.getInt();
                     String updateQuery4 = "UPDATE rental \n" +
-                            "SET customer_id = " + customerId + "\n" +
+                            "SET customer_id = \'" + customerId + "\'\n" +
                             "WHERE rental_id = " + rentalId;
                     DBConnection.updateDB(updateQuery4);
 
@@ -214,7 +210,7 @@ public class ControllerRental {
                     System.out.println("Enter the new car ID");
                     int carId = Validation.getInt();
                     String updateQuery5 = "UPDATE rental \n" +
-                            "SET car_id = " + carId + "\n" +
+                            "SET car_id = \'" + carId + "\'\n" +
                             "WHERE rental_id = " + rentalId;
                     DBConnection.updateDB(updateQuery5);
 

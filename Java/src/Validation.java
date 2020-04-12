@@ -3,11 +3,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validation {
-    public static void main(String[] args) {
-        String regNr = getDate();
-        System.out.println(regNr);
-    }
-
     //gets a menu selection from the user
     public static int menuSelection(int lowerIndex, int upperIndex) {
         int selection = getInt();
@@ -47,14 +42,7 @@ public class Validation {
             matcher = pattern.matcher(date);
             match = matcher.matches();
         }
-        System.out.println("Please specify from what hour you would like to rent");
-        int hour = console.nextInt();
-        while (9 > hour && hour < 23) {
-            System.out.println("Please use a number between 10-22");
-            hour = console.nextInt();
-        }
-        String time = hour + ":00:00.0";
-        return date + " " + time;
+        return date;
     }
 
     public static String getRegNr() {
@@ -77,10 +65,10 @@ public class Validation {
         String date = getDate();
         Scanner console = new Scanner(System.in);
         System.out.println("Please specify from what hour you would like to rent");
-        int hour = console.nextInt();
+        int hour = getInt();
         while (9 > hour && hour < 23) {
             System.out.println("Please use a number between 10-22");
-            hour = console.nextInt();
+            hour = getInt();
         }
         String time = hour + ":00:00.0";
         return date + " " + time;
