@@ -55,15 +55,10 @@ public class ControllerRental {
             String selectQuery = rentalSelect +
                     "ORDER BY car.car_id DESC LIMIT 1;";
             DBConnection.queryDB(selectQuery);
-            System.out.println("Car successfully added");
+            System.out.println("Rental contract successfully created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
-    }
-
-    public static void mai1n(String[] args) {
-        read();
 
     }
 

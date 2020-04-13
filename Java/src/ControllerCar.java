@@ -1,10 +1,6 @@
 import java.sql.*;
 
 public class ControllerCar {
-    public static void main(String[] args) {
-        update();
-    }
-
     //Creates a new car
     public static void create() {
         //Getting the model
@@ -30,9 +26,9 @@ public class ControllerCar {
 
         //Other car information
         System.out.println("Enter the registration number");
-        String regNr = Validation.getString();
+        String regNr = Validation.getRegNr();
         System.out.println("Enter the registration date\nFormat: yyyy-mm-dd");
-        String regDate = Validation.getString();
+        String regDate = Validation.getDate();
         System.out.println("Enter the number of km on the odometer");
         int odometer = Validation.getInt();
 

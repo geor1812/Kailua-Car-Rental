@@ -26,7 +26,7 @@ public class Validation {
     //returns a string from the user
     public static String getString() {
         Scanner console = new Scanner(System.in);
-        return console.next();
+        return console.nextLine();
     }
 
     public static String getDate() {
@@ -72,6 +72,37 @@ public class Validation {
         }
         String time = hour + ":00:00.0";
         return date + " " + time;
+    }
+
+    public static int intCheck(int min, int max){
+        Scanner scanner = new Scanner(System.in);
+        boolean correct = false;
+
+        String input = "";
+
+        while(!correct){
+            correct = true;
+
+            if(scanner.hasNextInt()){
+
+                input = scanner.next().trim();
+
+                if((Integer.parseInt(input) > min - 1 && Integer.parseInt(input) < max + 1)){
+
+                    correct = true;
+                } else {
+                    correct = false;
+                    System.out.printf("\t%-25s", "Please choose a valid number between " + min + " and " + max + ": ");
+                    input = "";
+                }
+            } else {
+                correct = false;
+                scanner.next();
+                System.out.printf("\t%-25s", "Please choose a valid number between " + min + " and " + max + ": ");
+            }
+        }
+        scanner.nextLine();
+        return Integer.parseInt(input);
     }
 
 }
